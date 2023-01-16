@@ -16,7 +16,7 @@ dev-zuo short link server
   <body>
     <p>获取短链接配置中....</p>
     <script>
-      fetch("http://zuo11.com:5000/share/shortLink/list?_id=63c430837fc644a8c1b0e9fd&pageSize=100")
+      fetch("https://config.zuo11.com/share/shortLink/list?_id=63c430837fc644a8c1b0e9fd&pageSize=100")
         .then((res) => {
           console.log(res);
           return res.json();
