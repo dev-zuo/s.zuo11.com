@@ -1,2 +1,44 @@
 # s.zuo11.com
+
 dev-zuo short link server
+
+通过调用配置中心 config.zuo11.com 对应接口，根据配置，跳转到对应的 url
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dev-zuo短链接服务</title>
+  </head>
+  <body>
+    <p>获取短链接配置中....</p>
+    <script>
+      fetch("http://zuo11.com:5000/share/shortLink/list?_id=63c430837fc644a8c1b0e9fd&pageSize=100")
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((res) => {
+            let list = res?.data?.list || []
+            let info = {}
+            list.forEach((item) => {
+                info[item.shortLink] = item.redirect
+            })
+            console.log(info)
+           if (info[location.pathname]) {
+                window.location.href = info[location.pathname]
+           } else {
+                document.write('不存在短链接 ' + location.pathname)
+           }
+            
+        })
+        .catch(e => {
+            alert('短链接服务接口异常', e?.message);
+        })
+    </script>
+  </body>
+</html>
+```
